@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Checkout</title>
+    <style>
+        /* --- Reset & Base Styles --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f4f6f9;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* --- Main Layout --- */
+        .checkout-container {
+            background-color: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+            max-width: 1000px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr;
+            overflow: hidden;
+        }
+
+        @media (min-width: 768px) {
+            .checkout-container {
+                grid-template-columns: 1.2fr 1fr;
+            }
+        }
+
+        /* --- Left Side: Payment Form --- */
+        .payment-form {
+            padding: 40px;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: #1a1a1a;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .lock-icon {
+            font-size: 1.2rem;
+            color: #2ec4b6;
+        }
+
+        /* --- Payment Method Toggle --- */
+        .payment-methods {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .method-option {
+            position: relative;
+        }
+
+        .method-option input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .method-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 15px;
+            border: 2px solid #e1e8ed;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .method-option input:checked + .method-label {
+            border-color: #4361ee;
+            color: #4361ee;
+            background-color: #f0f3ff;
+        }
+
+        /* --- Form Inputs --- */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group.row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px;
+            border: 1.5px solid #e1e8ed;
+            border-radius: 8px;
+            font-size: 1rem;
+            color: #333;
+            transition: border-color 0.2s ease;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #4361ee;
+        }
+
+        /* --- Right Side: Order Summary --- */
+        .order-summary {
+            background-color: #f8f9fa;
+            padding: 40px;
+            border-top: 1px solid #e1e8ed;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        @media (min-width: 768px) {
+            .order-summary {
+                border-top: none;
+                border-left: 1px solid #e1e8ed;
+            }
+        }
+
+        .summary-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: #1a1a1a;
+        }
+
+        .item-list {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        .item-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .item-name {
+            font-weight: 500;
+            color: #444;
+        }
+
+        .item-price {
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        .divider {
+            border: 0;
+            height: 1px;
+            background: #e1e8ed;
+            margin: 20px 0;
+        }
+
+        /* --- Pricing breakdown --- */
+        .pricing-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+            color: #666;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-top: 10px;
+        }
+
+        /* --- Submit Button --- */
+        .btn-submit {
+            background-color: #4361ee;
+            color: #fff;
+            border: none;
+            padding: 16px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 30px;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+            box-shadow: 0 4px 12px rgba(67, 97, 238, 0.3);
+        }
+
+        .btn-submit:hover {
+            background-color: #304fd0;
+        }
+
+        .btn-submit:active {
+            transform: scale(0.99);
+        }
+
+        .secure-footer {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #999;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="checkout-container">
+        
+        <!-- Left Column: Payment Details Form -->
+        <main class="payment-form">
+            <h2 class="section-title">
+                <span class="lock-icon">🔒</span> Secure Payment
+            </h2>
+
+            <form action="#" method="POST" onsubmit="event.preventDefault(); alert('Payment processing simulated successfully!');">
+                
+                <!-- Payment Method Toggle -->
+                <div class="payment-methods">
+                    <div class="method-option">
+                        <input type="radio" id="credit-card" name="payment-method" value="card" checked>
+                        <label for="credit-card" class="method-label">
+                            💳 Credit Card
+                        </label>
+                    </div>
+                    <div class="method-option">
+                        <input type="radio" id="paypal" name="payment-method" value="paypal">
+                        <label for="paypal" class="method-label">
+                            🅿️ PayPal
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Cardholder Name -->
+                <div class="form-group">
+                    <label for="card-name">Cardholder Name</label>
+                    <input type="text" id="card-name" placeholder="John Doe" required autocomplete="name">
+                </div>
+
+                <!-- Card Number -->
+                <div class="form-group">
+                    <label for="card-number">Card Number</label>
+                    <input type="text" id="card-number" placeholder="4111 2222 3333 4444" pattern="[0-9\s]{13,19}" inputmode="numeric" required maxlength="19">
+                </div>
+
+                <!-- Expiry & CVC Row -->
+                <div class="form-group row">
+                    <div>
+                        <label for="card-expiry">Expiry Date</label>
+                        <input type="text" id="card-expiry" placeholder="MM/YY" pattern="(0[1-9]|1[0-2])\/([0-9]{2})" required maxlength="5">
+                    </div>
+                    <div>
+                        <label for="card-cvc">CVC / CVV</label>
+                        <input type="password" id="card-cvc" placeholder="123" pattern="[0-9]{3,4}" inputmode="numeric" required maxlength="4">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-submit">Pay $139.00</button>
+            </form>
+
+            <div class="secure-footer">
+                Your payment data is encrypted and secure.
+            </div>
+        </main>
+
+        <!-- Right Column: Order Summary -->
+        <aside class="order-summary">
+            <div>
+                <h3 class="summary-title">Order Summary</h3>
+                
+                <ul class="item-list">
+                    <li class="item-row">
+                        <span class="item-name">Apex Minimalist Backpack × 1</span>
+                        <span class="item-price">$129.00</span>
+                    </li>
+                </ul>
+
+                <hr class="divider">
+
+                <div class="pricing-breakdown">
+                    <div class="pricing-row">
+                        <span>Subtotal</span>
+                        <span>$129.00</span>
+                    </div>
+                    <div class="pricing-row">
+                        <span>Shipping</span>
+                        <span style="color: #2ec4b6; font-weight: 600;">Free</span>
+                    </div>
+                    <div class="pricing-row">
+                        <span>Estimated Tax</span>
+                        <span>$10.00</span>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <hr class="divider">
+                <div class="total-row">
+                    <span>Total</span>
+                    <span>$139.00</span>
+                </div>
+            </div>
+        </aside>
+
+    </div>
+
+</body>
+</html>
