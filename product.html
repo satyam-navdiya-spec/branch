@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Minimalist Backpack</title>
+    <style>
+        /* --- Reset & Base Styles --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* --- Card Container --- */
+        .product-container {
+            background-color: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            display: grid;
+            grid-template-columns: 1fr;
+            max-width: 900px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        /* Responsive Desktop Split */
+        @media (min-width: 768px) {
+            .product-container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        /* --- Image Gallery Section --- */
+        .product-gallery {
+            background-color: #f1f1f1;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .badge {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: #000;
+            color: #fff;
+            padding: 5px 12px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: bold;
+            border-radius: 20px;
+            letter-spacing: 1px;
+        }
+
+        /* Placeholder Product Image using pure CSS */
+        .main-image {
+            width: 100%;
+            max-width: 350px;
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, #ddd 25%, transparent 25%) -50px 0,
+                        linear-gradient(225deg, #ddd 25%, transparent 25%) -50px 0,
+                        linear-gradient(45deg, #ddd 25%, transparent 25%),
+                        linear-gradient(315deg, #ddd 25%, #e6e6e6 25%);
+            background-size: 100px 100px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+            font-weight: 600;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+        }
+
+        /* --- Product Details Section --- */
+        .product-details {
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .brand {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #888;
+            margin-bottom: 8px;
+        }
+
+        .title {
+            font-size: 2rem;
+            color: #111;
+            margin-bottom: 15px;
+            line-height: 1.2;
+        }
+
+        .price-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .current-price {
+            font-size: 1.75rem;
+            font-weight: bold;
+            color: #e63946;
+        }
+
+        .original-price {
+            font-size: 1.2rem;
+            color: #999;
+            text-decoration: line-through;
+        }
+
+        .description {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        /* --- Interactive Options --- */
+        .options-title {
+            font-size: 0.85rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .size-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 35px;
+        }
+
+        .size-box {
+            position: relative;
+        }
+
+        .size-box input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .size-label {
+            display: inline-block;
+            padding: 8px 16px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .size-box input:checked + .size-label {
+            border-color: #000;
+            background-color: #000;
+            color: #fff;
+        }
+
+        .size-label:hover {
+            border-color: #888;
+        }
+
+        /* --- Action Button --- */
+        .btn-add-to-cart {
+            background-color: #111;
+            color: #fff;
+            border: none;
+            padding: 16px 32px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+        }
+
+        .btn-add-to-cart:hover {
+            background-color: #333;
+        }
+
+        .btn-add-to-cart:active {
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body>
+
+    <main class="product-container">
+        <section class="product-gallery">
+            <span class="badge">Sale</span>
+            <div class="main-image">
+                [ Product Image Placeholder ]
+            </div>
+        </section>
+
+        <section class="product-details">
+            <span class="brand">Aero Vanguard</span>
+            <h1 class="title">Apex Minimalist Everyday Backpack</h1>
+            
+            <div class="price-container">
+                <span class="current-price">$129.00</span>
+                <span class="original-price">$180.00</span>
+            </div>
+
+            <p class="description">
+                Designed for the modern professional, the Apex Backpack features a weather-resistant sleek shell, a dedicated 16-inch laptop compartment, and intelligent internal organization to keep your everyday essentials streamlined.
+            </p>
+
+            <div class="options-container">
+                <div class="options-title">Select Capacity</div>
+                <div class="size-selector">
+                    <div class="size-box">
+                        <input type="radio" id="size-15" name="capacity" value="15L" checked>
+                        <label for="size-15" class="size-label">15L</label>
+                    </div>
+                    <div class="size-box">
+                        <input type="radio" id="size-20" name="capacity" value="20L">
+                        <label for="size-20" class="size-label">20L</label>
+                    </div>
+                    <div class="size-box">
+                        <input type="radio" id="size-25" name="capacity" value="25L">
+                        <label for="size-25" class="size-label">25L</label>
+                    </div>
+                </div>
+            </div>
+
+            <button type="button" class="btn-add-to-cart">Add to Cart</button>
+        </section>
+    </main>
+
+</body>
+</html> 
